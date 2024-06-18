@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tasks>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
  */
-class TasksFactory extends Factory
+class TaskFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,8 @@ class TasksFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->sentence,
+            'is_completed' => rand(0, 1),
         ];
     }
 }
