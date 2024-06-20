@@ -22,12 +22,14 @@ class LoginController extends Controller
            throw ValidationException::withMessages([
                'email' => ['The provided credentials are incorrect.'],
            ]);
-        }
-        return response()->json([
+        }else{
+             return response()->json([
             'message' => 'User logged in successfully',
             'token' => $user->createToken('auth_token')->plainTextToken,
             'user' => $user
         ]);
+        }
+       
        
     }
 }
