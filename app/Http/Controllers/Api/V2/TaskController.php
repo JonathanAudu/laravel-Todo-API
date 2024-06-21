@@ -4,12 +4,18 @@ namespace App\Http\Controllers\Api\V2;
 
 use App\Models\Task;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TaskResource;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
-use App\Http\Resources\TaskResource;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+
 
 class TaskController extends Controller
 {
+    use AuthorizesRequests;
+
+
     /**
      * Display a listing of the resource.
      */
@@ -33,6 +39,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        $this->authorize('view', $task);
         return TaskResource::make($task);
     }
 
@@ -42,6 +49,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        $this->authorize('update', $task);
         $task->update($request->validated());
         return TaskResource::make($task);
     }
@@ -51,9 +59,8 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $this->authorize('delete', $task);
         $task->delete();
         return response()->noContent();
     }
 }
-
-
